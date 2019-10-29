@@ -123,7 +123,7 @@ def main():
         valid_acc = infer(valid_loader, model, controller)
         logging.info('valid_acc %f', valid_acc)
 
-        utils.save(model, os.path.join(args.save, 'weights.pt'))
+        utils.save(model, controller, os.path.join(args.save, 'states.pt'))
 
 
 def train(train_loader, model, controller, optimizer):

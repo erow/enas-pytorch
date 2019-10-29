@@ -88,12 +88,16 @@ def save_checkpoint(state, is_best, save):
         shutil.copyfile(filename, best_filename)
 
 
-def save(model, model_path):
-    torch.save(model.state_dict(), model_path)
+def save(model, controller, model_path):
+    states = {'model': model.state_dict(),
+              'controller': controller.state_dict()}
+    torch.save(states, model_path)
 
 
-def load(model, model_path):
-    model.load_state_dict(torch.load(model_path))
+def load(model, controller, model_path):
+    states = torch.load(model_path)
+    model.load_state_dict(states['model'])
+    controller.load_state_dict(states['controller'])
 
 
 def drop_path(x, drop_prob):
